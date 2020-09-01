@@ -9,6 +9,7 @@ function dragElement(element) {
     // Make the whole element draggable
     if (document.getElementById(element.id + "Header")) {
         /* if present, the header is where you move the DIV from:*/
+        console.log("Drag registered")
         document.getElementById(element.id + "Header").onmousedown = dragMouseDown;
     } else {
         /* otherwise, move the DIV from anywhere inside the DIV:*/
@@ -46,7 +47,6 @@ function dragElement(element) {
 }
 
 // MARK: Resize function
-
 function resizeRight(e) {
     let mousePosition = e.x
     panel.style.width = parseInt(mousePosition - panel.offsetLeft) + "px"
@@ -58,7 +58,11 @@ function resizeLeft(e) {
     let mousePosition = e.x
     panel.style.left = mousePosition + "px"
     panel.style.width = oldWidth - (mousePosition - oldX) + "px"
-    console.log(panel.offsetLeft)
+}
+
+function resizeBottom(e) {
+    let mousePosition = e.x
+    panel.style.height = parseInt(mousePosition)
 }
 
 function resizeWindowListener(element) {
@@ -71,7 +75,7 @@ function resizeWindowListener(element) {
         const elementWidth = element.offsetWidth
         const elementHeight = element.offsetHeight
         // Define borders by side
-        if(e.offsetX > (elementWidth - 4)) {
+        if(e.offsetX > (elementWidth - 10)) {
             document.addEventListener("mousemove", resizeRight, false)
 
         } else if (e.offsetX < borderSize) {
@@ -79,7 +83,7 @@ function resizeWindowListener(element) {
             oldWidth = element.offsetWidth
             document.addEventListener("mousemove", resizeLeft, false)
             
-        } else if (e.offsetY > (elementHeight - 4)) {
+        } else if (e.offsetY > (elementHeight - 10)) {
             console.log(e.y + " bottom border") 
 
         } else if (e.offsetY < borderSize ) {
